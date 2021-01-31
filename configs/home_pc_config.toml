@@ -1,0 +1,11 @@
+
+ServerPort = 1324
+
+[Postgres]
+Host = "localhost"
+Port = 5432
+User = "postgres"
+Password = "postgres"
+DBName = "mydb"
+
+		
