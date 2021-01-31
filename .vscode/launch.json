@@ -1,0 +1,39 @@
+{
+    // Используйте IntelliSense, чтобы узнать о возможных атрибутах.
+    // Наведите указатель мыши, чтобы просмотреть описания существующих атрибутов.
+    // Для получения дополнительной информации посетите: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Package",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${workspaceFolder}"
+        },
+        {
+            "name": "Launch PC",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/service/cmd/main.go",
+            "env": {},
+            "args": [
+                "-config",
+                "${workspaceFolder}/configs/home_pc_config.toml"
+            ]
+        },
+        {
+            "name": "Launch Notebook",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/service/cmd/main.go",
+            "env": {},
+            "args": [
+                "-config",
+                "${workspaceFolder}/configs/linux_notebook_config.toml"
+            ]
+        }
+    ]
+}

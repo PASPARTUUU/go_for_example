@@ -1,0 +1,37 @@
+миграции
+
+
+For Windows -------------------------------------------------
+
+создание миграции
+migrations\win_create_migration.bat Description
+
+применение миграций вверх
+migrations\win_migrate.bat up
+
+спуск по миграциям вниз на n шагов
+migrations\win_migrate.bat down 1
+
+версия миграции
+migrations\win_migrate.bat version
+
+насильная установка версии миграции (помогает при dirty)
+migrations\win_migrate.bat force 20200708150015
+
+For Linux -------------------------------------------------
+запускать из корня текущей папки (из папки migrations не запустится)
+
+создание миграции
+./migrations/linux_create_migration.sh Description
+
+применение миграций вверх
+./migrations/linux_migrate.sh up
+
+спуск по миграциям вниз на n шагов
+./migrations/linux_migrate.sh down 1
+
+версия миграции
+./migrations/linux_migrate.sh version
+
+насильная установка версии миграции (помогает при dirty)
+./migrations/linux_migrate.sh force 20200708150015
