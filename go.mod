@@ -15,6 +15,7 @@ require (
 	github.com/pkg/errors v0.8.1
 	github.com/sirupsen/logrus v1.7.0
 	github.com/spf13/viper v1.7.1
+	github.com/stretchr/testify v1.4.0
 	go.uber.org/atomic v1.4.0
 	mellium.im/sasl v0.2.1 // indirect
 )
