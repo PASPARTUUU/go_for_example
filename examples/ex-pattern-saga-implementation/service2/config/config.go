@@ -12,27 +12,8 @@ const (
 
 // Config -
 type Config struct {
-	ServerPort int
-
-	Postgres Postgres
-	Mongo    Mongo
-
+	ServerPort string
 	Rabbit Rabbit
-}
-
-// Postgres -
-type Postgres struct {
-	Host     string
-	Port     int
-	User     string
-	Password string
-	DBName   string
-}
-
-// Mongo -
-type Mongo struct {
-	URI    string
-	DBName string
 }
 
 // Rabbit -

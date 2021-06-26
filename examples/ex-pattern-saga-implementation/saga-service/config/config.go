@@ -13,11 +13,8 @@ const (
 // Config -
 type Config struct {
 	ServerPort int
-
-	Postgres Postgres
-	Mongo    Mongo
-
-	Rabbit Rabbit
+	Postgres   Postgres
+	Rabbit     Rabbit
 }
 
 // Postgres -
@@ -27,12 +24,6 @@ type Postgres struct {
 	User     string
 	Password string
 	DBName   string
-}
-
-// Mongo -
-type Mongo struct {
-	URI    string
-	DBName string
 }
 
 // Rabbit -
@@ -63,5 +54,5 @@ func Parse(filepath string) (*Config, error) {
 }
 
 func setDefaults() {
-	viper.SetDefault("ServerPort", ServerPort)
+	viper.SetDefault("ServerPort", 1324)
 }

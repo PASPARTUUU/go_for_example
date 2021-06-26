@@ -1,0 +1,7 @@
+
+ServerPort = 1326
+
+[Rabbit]
+RabbitURL = "localhost:5672"
+RabbitUser = "guest:guest"
+# RabbitUser = "krokodil:schnappi"
