@@ -6,9 +6,9 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
 
+	"github.com/PASPARTUUU/go_for_example/pkg/errpath"
 	"github.com/PASPARTUUU/go_for_example/service/models"
 	"github.com/PASPARTUUU/go_for_example/service/store"
-	"github.com/PASPARTUUU/go_for_example/tools/errpath"
 )
 
 // UserController -

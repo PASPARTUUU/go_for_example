@@ -4,7 +4,7 @@ import (
 	"image"
 	"math"
 
-	"github.com/PASPARTUUU/go_for_example/tools/errpath"
+	"github.com/PASPARTUUU/go_for_example/pkg/errpath"
 	"github.com/nfnt/resize"
 	"github.com/oliamb/cutter"
 )

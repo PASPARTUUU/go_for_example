@@ -9,16 +9,16 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/PASPARTUUU/go_for_example/pkg/errpath"
 	"github.com/PASPARTUUU/go_for_example/service/config"
 	"github.com/PASPARTUUU/go_for_example/service/handler"
 	"github.com/PASPARTUUU/go_for_example/service/logger"
 	"github.com/PASPARTUUU/go_for_example/service/server"
 	"github.com/PASPARTUUU/go_for_example/service/store"
-	"github.com/PASPARTUUU/go_for_example/tools/errpath"
 )
 
 const (
-	defaultConfigPath     = "configs/home_pc_config.toml"
+	defaultConfigPath     = "configs/linux_notebook_config.toml"
 	serverShutdownTimeout = 30 * time.Second
 )
 

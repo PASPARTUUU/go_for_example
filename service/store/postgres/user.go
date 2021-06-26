@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
+	"github.com/PASPARTUUU/go_for_example/pkg/errpath"
 	"github.com/PASPARTUUU/go_for_example/service/models"
-	"github.com/PASPARTUUU/go_for_example/tools/errpath"
 
 	"github.com/go-pg/pg"
 	"github.com/gofrs/uuid"

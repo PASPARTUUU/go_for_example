@@ -3,7 +3,7 @@ package tool
 import (
 	"time"
 
-	"github.com/PASPARTUUU/go_for_example/tools/errpath"
+	"github.com/PASPARTUUU/go_for_example/pkg/errpath"
 	"github.com/go-pg/pg/urlvalues"
 )
 

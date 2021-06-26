@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
+	"github.com/PASPARTUUU/go_for_example/pkg/errpath"
 	"github.com/PASPARTUUU/go_for_example/service/config"
 	"github.com/PASPARTUUU/go_for_example/service/store/postgres"
-	"github.com/PASPARTUUU/go_for_example/tools/errpath"
 	"github.com/sirupsen/logrus"
 )
 

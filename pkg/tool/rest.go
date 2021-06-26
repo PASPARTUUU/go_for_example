@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/PASPARTUUU/go_for_example/tools/errpath"
+	"github.com/PASPARTUUU/go_for_example/pkg/errpath"
 )
 
 // SendRequest -
