@@ -13,6 +13,9 @@ import (
 	"github.com/PASPARTUUU/go_for_example/service/config"
 	"github.com/PASPARTUUU/go_for_example/service/handler"
 	"github.com/PASPARTUUU/go_for_example/service/logger"
+	"github.com/PASPARTUUU/go_for_example/service/rabbitmq/rabbit"
+	"github.com/PASPARTUUU/go_for_example/service/rabbitmq/rabpub"
+	"github.com/PASPARTUUU/go_for_example/service/rabbitmq/rabsub"
 	"github.com/PASPARTUUU/go_for_example/service/server"
 	"github.com/PASPARTUUU/go_for_example/service/store"
 )
@@ -20,6 +23,7 @@ import (
 const (
 	defaultConfigPath     = "configs/linux_notebook_config.toml"
 	serverShutdownTimeout = 30 * time.Second
+	brokerShutdownTimeout = 30 * time.Second
 )
 
 func main() {
@@ -49,11 +53,35 @@ func main() {
 	defer store.Pg.DB.Close()
 	logger.Infoln(errpath.Infof("%+v", store.Pg.DB))
 
-	hndl := handler.New(store, logger)
+	// ---
+
+	rmq, err := rabbit.NewConnection(cfg.Rabbit)
+	if err != nil {
+		logger.Fatal(errpath.Err(err))
+	}
+	defer rmq.CloseRabbit()
+
+	pub, err := rabpub.New(rmq)
+	if err != nil {
+		logger.Fatal(errpath.Err(err))
+	}
+	defer pub.Wait(brokerShutdownTimeout)
+
+	// ---
+
+	hndl := handler.New(store, pub, logger)
 
 	router := server.NewRouter(logger)
 
 	server.RestInit(router, hndl)
+
+	// ---
+
+	sub, err := rabsub.Listen(rmq, hndl)
+	if err != nil {
+		logger.Fatal(errpath.Err(err))
+	}
+	defer sub.Wait(brokerShutdownTimeout)
 
 	// ---
 

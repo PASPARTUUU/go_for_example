@@ -8,4 +8,7 @@ User = "superuser"
 Password = "superuser"
 DBName = "mydb"
 
-		
+[Rabbit]
+RabbitURL = "localhost:5672"
+RabbitUser = "guest:guest"
+# RabbitUser = "krokodil:schnappi"

@@ -12,8 +12,10 @@ const (
 
 // Config -
 type Config struct {
-	Postgres   Postgres
 	ServerPort int
+
+	Postgres Postgres
+	Rabbit   Rabbit
 }
 
 // Postgres -
@@ -23,6 +25,12 @@ type Postgres struct {
 	User     string
 	Password string
 	DBName   string
+}
+
+// Rabbit -
+type Rabbit struct {
+	RabbitURL  string
+	RabbitUser string
 }
 
 // Parse will parse the configuration from the environment variables and a file with the specified path.
