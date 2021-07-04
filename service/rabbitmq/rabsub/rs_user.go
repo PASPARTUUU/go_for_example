@@ -29,7 +29,7 @@ func (s *Subscriber) HandleNewUser(ctx context.Context, msg amqp.Delivery) error
 		return errors.Wrap(err, "failed to create new usert")
 	}
 
-	logrus.WithField("userUUID", user.UUID).Debug("new user created successfully")
+	logrus.WithField("userID", user.ID).Debug("new user created successfully")
 
 	return nil
 }
@@ -46,7 +46,7 @@ func (s *Subscriber) HandleUpdatedUser(ctx context.Context, msg amqp.Delivery) e
 		return errors.Wrap(err, "failed to update user")
 	}
 
-	logrus.WithField("userUUID", user.UUID).Debug("user updated successfully")
+	logrus.WithField("userID", user.ID).Debug("user updated successfully")
 
 	return nil
 }
@@ -58,12 +58,12 @@ func (s *Subscriber) HandleDeleteUser(ctx context.Context, msg amqp.Delivery) er
 		return errors.Wrap(err, "failed to decode user")
 	}
 
-	err := s.Handler.Storage.Pg.User.DeleteUser(ctx, user.UUID)
+	err := s.Handler.Storage.Pg.User.DeleteUser(ctx, user.ID)
 	if err != nil {
 		return errors.Wrap(err, "failed to delete user")
 	}
 
-	logrus.WithField("userUUID", user.UUID).Debug("user deleted successfully")
+	logrus.WithField("userID", user.ID).Debug("user deleted successfully")
 
 	return nil
 }

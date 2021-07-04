@@ -34,10 +34,10 @@ func (r *Rest) Route(hndl *handler.Handler) {
 
 	open.POST("/bung", bung)
 
-	open.GET("/user/:uuid", hndl.UserHandler.Get)
+	open.GET("/user/:id", hndl.UserHandler.Get)
 	open.POST("/user", hndl.UserHandler.Create)
-	open.PUT("/user/:uuid", hndl.UserHandler.Update)
-	open.DELETE("/user/:uuid", hndl.UserHandler.Delete)
+	open.PUT("/user/:id", hndl.UserHandler.Update)
+	open.DELETE("/user/:id", hndl.UserHandler.Delete)
 
 }
 

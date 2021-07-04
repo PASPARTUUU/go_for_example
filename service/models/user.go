@@ -6,7 +6,7 @@ import "time"
 type User struct {
 	tableName struct{} `pg:"users"`
 
-	UUID string `json:"uuid" pg:"uuid,notnull,pk"`
+	ID   string `json:"id" pg:"uuid,notnull,pk"`
 	Name string `json:"name" pg:"firstname,notnull"`
 	Age  int    `json:"age" pg:"age,notnull"`
 

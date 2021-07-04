@@ -52,6 +52,7 @@ func main() {
 	}
 	defer store.Pg.DB.Close()
 	logger.Infoln(errpath.Infof("%+v", store.Pg.DB))
+	logger.Infoln(errpath.Infof("%+v", store.Mongo.DB))
 
 	// ---
 

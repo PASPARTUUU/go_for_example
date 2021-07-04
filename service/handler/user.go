@@ -52,9 +52,9 @@ func (ctr *UserController) Get(c echo.Context) error {
 	ctx := c.Request().Context()
 	log := ctr.logger.WithContext(ctx)
 
-	uuid := c.Param("uuid")
+	id := c.Param("id")
 
-	user, err := ctr.storage.Pg.User.GetUser(ctx, uuid)
+	user, err := ctr.storage.Pg.User.GetUser(ctx, id)
 	if err != nil {
 		log.Errorln(errpath.Err(err))
 		return c.JSON(http.StatusBadRequest, errpath.Err(err).Error())
@@ -75,7 +75,7 @@ func (ctr *UserController) Update(c echo.Context) error {
 		log.Errorln(errpath.Err(err))
 		return c.JSON(http.StatusBadRequest, errpath.Err(err, "could not decode user data").Error())
 	}
-	user.UUID = c.Param("uuid")
+	user.ID = c.Param("id")
 
 	uUser, err := ctr.storage.Pg.User.UpdateUser(ctx, &user)
 	if err != nil {
@@ -92,9 +92,9 @@ func (ctr *UserController) Delete(c echo.Context) error {
 	ctx := c.Request().Context()
 	log := ctr.logger.WithContext(ctx)
 
-	uuid := c.Param("uuid")
+	id := c.Param("id")
 
-	err := ctr.storage.Pg.User.DeleteUser(ctx, uuid)
+	err := ctr.storage.Pg.User.DeleteUser(ctx, id)
 	if err != nil {
 		log.Errorln(errpath.Err(err))
 		return c.JSON(http.StatusBadRequest, errpath.Err(err).Error())

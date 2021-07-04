@@ -8,6 +8,12 @@ User = "superuser"
 Password = "superuser"
 DBName = "mydb"
 
+
+[Mongo]
+URI   = "mongodb://127.0.0.1:27017"
+DBName = "mydb"
+
+
 [Rabbit]
 RabbitURL = "localhost:5672"
 RabbitUser = "guest:guest"

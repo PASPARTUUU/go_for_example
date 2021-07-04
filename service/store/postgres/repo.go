@@ -6,8 +6,9 @@ import (
 	"github.com/PASPARTUUU/go_for_example/service/models"
 )
 
-// UserRepo - is a store for users
-type UserRepo interface {
+// для сущностей хранимых исключительно в Postgres
+
+type PostgresUser interface {
 	GetUser(ctx context.Context, uuid string) (*models.User, error)
 	CreateUser(ctx context.Context, user *models.User) (*models.User, error)
 	UpdateUser(ctx context.Context, user *models.User) (*models.User, error)

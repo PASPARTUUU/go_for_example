@@ -13,19 +13,19 @@ import (
 
 // UserPgRepo -
 type UserPgRepo struct {
-	DB *pg.DB
+	db *pg.DB
 }
 
 // NewUserRepo -
 func NewUserRepo(db *pg.DB) *UserPgRepo {
-	return &UserPgRepo{DB: db}
+	return &UserPgRepo{db: db}
 }
 
 // GetUser - retrieves user from Postgres
-func (repo *UserPgRepo) GetUser(ctx context.Context, uuid string) (*models.User, error) {
+func (repo *UserPgRepo) GetUser(ctx context.Context, id string) (*models.User, error) {
 	user := &models.User{}
-	err := repo.DB.ModelContext(ctx, user).
-		Where("uuid = ?", uuid).
+	err := repo.db.ModelContext(ctx, user).
+		Where("uuid = ?", id).
 		Select()
 	if err != nil {
 		if err == pg.ErrNoRows { //not found
@@ -42,9 +42,9 @@ func (repo *UserPgRepo) CreateUser(ctx context.Context, user *models.User) (*mod
 	if err != nil {
 		return nil, errpath.Err(err)
 	}
-	user.UUID = uuid.String()
+	user.ID = uuid.String()
 
-	_, err = repo.DB.ModelContext(ctx, user).
+	_, err = repo.db.ModelContext(ctx, user).
 		Insert()
 	if err != nil {
 		return nil, errpath.Err(err)
@@ -56,7 +56,7 @@ func (repo *UserPgRepo) CreateUser(ctx context.Context, user *models.User) (*mod
 // UpdateUser - updates user in Postgres
 func (repo *UserPgRepo) UpdateUser(ctx context.Context, user *models.User) (*models.User, error) {
 	user.UpdatedAt = time.Now()
-	_, err := repo.DB.ModelContext(ctx, user).
+	_, err := repo.db.ModelContext(ctx, user).
 		WherePK().
 		Returning("*").
 		UpdateNotNull()
@@ -72,9 +72,9 @@ func (repo *UserPgRepo) UpdateUser(ctx context.Context, user *models.User) (*mod
 
 // DeleteUser - set deleted time for user in Postgres
 // rus: устанавливает время удаления пользователя
-func (repo *UserPgRepo) DeleteUser(ctx context.Context, uuid string) error {
-	_, err := repo.DB.ModelContext(ctx, (*models.User)(nil)).
-		Where("uuid = ?", uuid).
+func (repo *UserPgRepo) DeleteUser(ctx context.Context, id string) error {
+	_, err := repo.db.ModelContext(ctx, (*models.User)(nil)).
+		Where("uuid = ?", id).
 		Set("deleted_at = ?", time.Now()).
 		Update()
 	if err != nil {

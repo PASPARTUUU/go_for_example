@@ -2,19 +2,28 @@ package postgres
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/go-pg/pg"
+	"github.com/sirupsen/logrus"
 	"go.uber.org/atomic"
 
 	"github.com/PASPARTUUU/go_for_example/pkg/errpath"
 	"github.com/PASPARTUUU/go_for_example/service/config"
+	"github.com/PASPARTUUU/go_for_example/service/store/repo"
 )
+
+// KeepAlivePollPeriod - is a Pg keepalive check time period
+const keepAlivePollPeriod = time.Second * 60
 
 // Pg -
 type Pg struct {
 	DB *pg.DB
-
-	User UserRepo
+	//---
+	User         repo.User
+	PostgresUser PostgresUser
+	//---
+	cfg config.Postgres
 }
 
 // Tracer -
@@ -44,10 +53,45 @@ func NewConnect(cfg config.Postgres) (*Pg, error) {
 
 	Tracer = InitDebugSQLQueryHook(db)
 
-	return &Pg{
-		DB:   db,
-		User: NewUserRepo(db),
-	}, nil
+	pg := Pg{
+		DB:           db,
+		User:         NewUserRepo(db),
+		PostgresUser: NewUserRepo(db),
+	}
+	if db != nil {
+		go pg.keepAlive()
+	}
+
+	return &pg, nil
+}
+
+// -------------------------------------------------
+
+// keepAlive - makes sure PostgreSQL is alive and reconnects if needed
+func (pg *Pg) keepAlive() {
+	log := logrus.WithField("event", "KeepAlivePg")
+	var err error
+	for {
+		// Check if PostgreSQL is alive every 'KeepAlivePollPeriod' seconds
+		time.Sleep(keepAlivePollPeriod)
+		lostConnect := false
+		if pg == nil {
+			lostConnect = true
+		} else if _, err = pg.DB.Exec("SELECT 1"); err != nil {
+			lostConnect = true
+		}
+		if !lostConnect {
+			continue
+		}
+		log.Warnln(errpath.Infof("Lost PostgreSQL connection. Restoring..."))
+
+		pg, err = NewConnect(pg.cfg)
+		if err != nil {
+			log.Errorln(errpath.Err(err))
+			continue
+		}
+		log.Infoln(errpath.Infof("PostgreSQL reconnected"))
+	}
 }
 
 // -------------------------------------------------

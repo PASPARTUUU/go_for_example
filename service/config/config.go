@@ -15,7 +15,9 @@ type Config struct {
 	ServerPort int
 
 	Postgres Postgres
-	Rabbit   Rabbit
+	Mongo    Mongo
+
+	Rabbit Rabbit
 }
 
 // Postgres -
@@ -25,6 +27,12 @@ type Postgres struct {
 	User     string
 	Password string
 	DBName   string
+}
+
+// Mongo -
+type Mongo struct {
+	URI    string
+	DBName string
 }
 
 // Rabbit -
