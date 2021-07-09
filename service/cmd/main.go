@@ -18,12 +18,14 @@ import (
 	"github.com/PASPARTUUU/go_for_example/service/rabbitmq/rabsub"
 	"github.com/PASPARTUUU/go_for_example/service/server"
 	"github.com/PASPARTUUU/go_for_example/service/store"
+	"github.com/PASPARTUUU/go_for_example/service/tickers"
 )
 
 const (
 	defaultConfigPath     = "configs/linux_notebook_config.toml"
 	serverShutdownTimeout = 30 * time.Second
 	brokerShutdownTimeout = 30 * time.Second
+	tickerShutdownTimeout = 30 * time.Second
 )
 
 func main() {
@@ -83,6 +85,12 @@ func main() {
 		logger.Fatal(errpath.Err(err))
 	}
 	defer sub.Wait(brokerShutdownTimeout)
+
+	// ---
+
+	ticker := tickers.New(hndl)
+	ticker.Start()
+	ticker.Wait(tickerShutdownTimeout)
 
 	// ---
 
